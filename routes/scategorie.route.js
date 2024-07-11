@@ -2,6 +2,8 @@ const express = require("express");
 const Scategorie = require("../models/scategorie");
 const router = express.Router();
 
+
+
 router.post("/", async (req, res) => {
     const scat1 = new Scategorie(req.body);
     try {
@@ -15,7 +17,7 @@ router.post("/", async (req, res) => {
 // afficher la liste des sous-catégories.
 router.get('/', async (req, res) => {
     try {
-        const scat = await Scategorie.find();
+        const scat = await Scategorie.find({}, null, {sort:{'_id':-1}}).populate("caregorieID");
         res.status(200).json(scat);
     } catch (error) {
         res.status(404).json({ message: error.message });
@@ -25,7 +27,7 @@ router.get('/', async (req, res) => {
 // afficher un item by id.
 router.get('/:id', async (req, res) => {
     try {
-        const scat = await Scategorie.findById(req.params.id);
+        const scat = await Scategorie.findById(req.params.id).populate("caregorieID");
         res.status(200).json(scat);
     } catch (error) {
         res.status(404).json({ message: error.message });

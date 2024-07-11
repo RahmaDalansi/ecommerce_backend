@@ -2,13 +2,18 @@
 const express= require("express")
 const mongoose =require("mongoose")
 const dotenv= require("dotenv")
-
+const cors= require("cors")
 const categorieRouter= require("./routes/categorie.route")
 const scategorieRouter= require("./routes/scategorie.route")
 const articleRouter= require("./routes/article.route")
 
 //instance de la classe express
 const app=express()
+
+app.use(cors({
+    origin:'*'
+}))
+
 //middleware it's to understand req.body in categorie.route.js
 app.use (express.json())
 
